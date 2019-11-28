@@ -8,7 +8,7 @@ setwd(here())
 
 source("R/functions/LoadData.R")
 source("R/functions/FitFunctions_Downstream.R")
-suppressMessages(LoadPrimetimeObjs())  # loads the processed data into R
+suppressWarnings(suppressMessages(LoadPrimetimeObjs()))  # loads the processed data into R
 act.zscore.lst <- LoadMaraOutput(act.dir = "data/sleep_deprivation_gene_exprs_all")  # load TF activity outputs
 
 #' ## Explore the sleep deprivation data
