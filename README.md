@@ -13,30 +13,6 @@
     source("R/functions/FitFunctions_Downstream.R")
     suppressMessages(LoadPrimetimeObjs())  # loads the processed data into R
 
-    ## Warning in dir.create(plotmain): '/home/yeung/projects/sleep_deprivation/
-    ## plots/primetime.sleuth.cutoff.5.5_2019-11-28' already exists
-
-    ## Loading objects:
-    ##   dat.long.cleaned
-
-    ## Warning: Detecting old grouped_df format, replacing `vars` attribute by
-    ## `groups`
-
-    ## Loading objects:
-    ##   dat.long.cleaned
-
-    ## Warning: Detecting old grouped_df format, replacing `vars` attribute by
-    ## `groups`
-
-    ## Warning: Detecting old grouped_df format, replacing `vars` attribute by
-    ## `groups`
-
-    ## Warning: Detecting old grouped_df format, replacing `vars` attribute by
-    ## `groups`
-
-    ## Warning: Detecting old grouped_df format, replacing `vars` attribute by
-    ## `groups`
-
     ## Loading objects:
     ##   dat.long.means
     ##   clstrs
