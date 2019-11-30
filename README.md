@@ -11,8 +11,12 @@
 
     source("R/functions/LoadData.R")
     source("R/functions/FitFunctions_Downstream.R")
-    suppressMessages(LoadPrimetimeObjs())  # loads the processed data into R
+    suppressWarnings(suppressMessages(LoadPrimetimeObjs()))  # loads the processed data into R
 
+    ## Loading objects:
+    ##   dat.long.cleaned
+    ## Loading objects:
+    ##   dat.long.cleaned
     ## Loading objects:
     ##   dat.long.means
     ##   clstrs
@@ -37,7 +41,7 @@ The expression dynamics of many genes can be accurately predicted from
 sleep-wake history of mice:
 
     g <- "Egr2"
-    print(PlotBestFit(subset(dat.long.shift, gene == g), subset(fits, gene == g), filt.time, g, wake.collapsed, low.pass.filt.time, dat.pred = NA, dat.eeg = dat.eeg.plot))
+    print(PlotBestFit(subset(dat.long.shift, gene == g), subset(fits, gene == g), filt.time, g, wake.collapsed, low.pass.filt.time, dat.pred = NA, dat.eeg = dat.eeg.plot, jsize = 10))
 
     ## [1] "Adding rectangle"
 
@@ -48,7 +52,7 @@ sleep-wake history of mice:
 
     ## Warning: Removed 2 rows containing missing values (geom_bar).
 
-<img src="README_files/figure-markdown_strict/unnamed-chunk-2-1.png" alt="fig1" width="500"/>
+![](README_files/figure-markdown_strict/unnamed-chunk-2-1.png)
 
     ## NULL
 
@@ -56,7 +60,7 @@ Interestingly, clock and clock output genes were affected by sleep
 deprivation, often in a non-trivial manner:
 
     g <- "Nr1d1"
-    print(PlotBestFit(subset(dat.long.shift, gene == g), subset(fits, gene == g), filt.time, g, wake.collapsed, low.pass.filt.time, dat.pred = NA, dat.eeg = dat.eeg.plot))
+    print(PlotBestFit(subset(dat.long.shift, gene == g), subset(fits, gene == g), filt.time, g, wake.collapsed, low.pass.filt.time, dat.pred = NA, dat.eeg = dat.eeg.plot, jsize = 10))
 
     ## [1] "Adding rectangle"
 
@@ -139,7 +143,7 @@ We inferred that SRF may be driving many of the early-response dynamics
     act.means <- act.long %>%
       group_by(gene, time) %>%
       summarise(exprs = mean(exprs), sem = sqrt(sum(sem ^ 2)))
-    PlotMara.withEEG(subset(act.means, gene == jmotif), dat.eeg.plot, jtitle = jmotif)
+    PlotMara.withEEG(subset(act.means, gene == jmotif), dat.eeg.plot, jtitle = jmotif, labsize = 10, ysize = 10)
 
     ## [1] "Adding rectangle"
 

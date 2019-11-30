@@ -16,13 +16,13 @@ act.zscore.lst <- LoadMaraOutput(act.dir = "data/sleep_deprivation_gene_exprs_al
 #' The expression dynamics of many genes can be accurately predicted from sleep-wake history of mice:
 
 g <- "Egr2"
-print(PlotBestFit(subset(dat.long.shift, gene == g), subset(fits, gene == g), filt.time, g, wake.collapsed, low.pass.filt.time, dat.pred = NA, dat.eeg = dat.eeg.plot))
+print(PlotBestFit(subset(dat.long.shift, gene == g), subset(fits, gene == g), filt.time, g, wake.collapsed, low.pass.filt.time, dat.pred = NA, dat.eeg = dat.eeg.plot, jsize = 10))
 
 
 #' Interestingly, clock and clock output genes were affected by sleep deprivation, often in a non-trivial manner:
 
 g <- "Nr1d1"
-print(PlotBestFit(subset(dat.long.shift, gene == g), subset(fits, gene == g), filt.time, g, wake.collapsed, low.pass.filt.time, dat.pred = NA, dat.eeg = dat.eeg.plot))
+print(PlotBestFit(subset(dat.long.shift, gene == g), subset(fits, gene == g), filt.time, g, wake.collapsed, low.pass.filt.time, dat.pred = NA, dat.eeg = dat.eeg.plot, jsize = 10))
 
 
 #' We used a model selection to infer genes that may be sleep-wake driven, here's how to do the fits:
@@ -77,7 +77,7 @@ jmotif <- "SRF.p3"
 act.means <- act.long %>%
   group_by(gene, time) %>%
   summarise(exprs = mean(exprs), sem = sqrt(sum(sem ^ 2)))
-PlotMara.withEEG(subset(act.means, gene == jmotif), dat.eeg.plot, jtitle = jmotif)
+PlotMara.withEEG(subset(act.means, gene == jmotif), dat.eeg.plot, jtitle = jmotif, labsize = 10, ysize = 10)
 
 
 
