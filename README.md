@@ -1,3 +1,8 @@
+Installation
+----------------
+devtools::install_github("jakeyeung/SleepDepAnalysis")
+
+
     # Jake Yeung
     # Date of Creation: 2019-11-28
     # File: ~/projects/SleepDepAnalysis/R/README.R
