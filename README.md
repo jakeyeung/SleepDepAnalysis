@@ -48,7 +48,7 @@ sleep-wake history of mice:
 
     ## Warning: Removed 2 rows containing missing values (geom_bar).
 
-![](README_files/figure-markdown_strict/unnamed-chunk-2-1.png =250x)
+<img src="README_files/figure-markdown_strict/unnamed-chunk-2-1.png" alt="fig1" width="500"/>
 
     ## NULL
 
