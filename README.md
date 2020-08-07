@@ -1,6 +1,7 @@
-Installation
-----------------
-devtools::install_github("jakeyeung/SleepDepAnalysis")
+Installation:
+-------------
+
+    # devtools::install_github("jakeyeung/SleepDepAnalysis")
 
 
     # Jake Yeung
@@ -8,34 +9,23 @@ devtools::install_github("jakeyeung/SleepDepAnalysis")
     # File: ~/projects/SleepDepAnalysis/R/README.R
     # Make a nice README.md for people to see how to plot the data
 
-    library(here)
 
-    ## here() starts at /home/yeung/projects/SleepDepAnalysis
 
+    library(here)  # for loading Mara output, which needs to point to a directory
     setwd(here())
 
-    source("R/functions/LoadData.R")
-    source("R/functions/FitFunctions_Downstream.R")
+    library(SleepDepAnalysis)
+
     suppressWarnings(suppressMessages(LoadPrimetimeObjs()))  # loads the processed data into R
 
     ## Loading objects:
     ##   dat.long.cleaned
     ## Loading objects:
     ##   dat.long.cleaned
-    ## Loading objects:
-    ##   dat.long.means
-    ##   clstrs
-    ##   cent.long.base
-    ##   cent.long.full
-    ##   mat.means.exprs
-    ##   mat.means
-    ##   wss
-    ##   max.n
-    ##   n.centers
 
     ## NULL
 
-    act.zscore.lst <- LoadMaraOutput(act.dir = "data/sleep_deprivation_gene_exprs_all")  # load TF activity outputs
+    act.zscore.lst <- LoadMaraOutput(act.dir = "data/sleep_deprivation_gene_exprs_all")  # function needs to point to directory
 
     ## Joining, by = c("gene", "sample", "time", "samp")
 
@@ -119,19 +109,6 @@ here's how to do the fits:
     fit.output <- AddBICToDat(fit.output)
 
     ## Warning: Grouping rowwise data frame strips rowwise nature
-
-    ## Warning: funs() is soft deprecated as of dplyr 0.8.0
-    ## Please use a list of either functions or lambdas: 
-    ## 
-    ##   # Simple named list: 
-    ##   list(mean = mean, median = median)
-    ## 
-    ##   # Auto named with `tibble::lst()`: 
-    ##   tibble::lst(mean, median)
-    ## 
-    ##   # Using lambdas
-    ##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-    ## This warning is displayed once per session.
 
     fit.output$model <- SelectBestModel(fit.output, colnames(fit.output))  # Egr2 is sleep-wake driven gene
 
