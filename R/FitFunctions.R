@@ -1,5 +1,5 @@
-library(dplyr)
-library(Rcpp)
+#library(dplyr)
+#library(Rcpp)
 
 
 # Fit weighted circadian --------------------------------------------------
@@ -1025,7 +1025,7 @@ logL.Scollapsed <- function(th, x, wake.collapsed, filter.times, do.lowpass=FALS
   return(loss)
 }
 
-cppFunction('double GetNextS(NumericVector row, NumericVector th, double Sprev) {
+Rcpp::cppFunction('double GetNextS(NumericVector row, NumericVector th, double Sprev) {
             double S;
             if (row[0] == 1){
               S = th[1] - (th[1] - Sprev) * exp(-row[1] / th[2]);

@@ -1,4 +1,4 @@
-source("R/functions/PlotFunctions.auxiliary.R")
+#source("R/functions/PlotFunctions.auxiliary.R")
 
 LoadMaraOutput <- function(act.dir="data/sleep_deprivation_gene_exprs_all"){
   act.f <- file.path(act.dir, "Activities")

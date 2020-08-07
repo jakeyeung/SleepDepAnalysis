@@ -1,6 +1,6 @@
 # functions from UTR scripts
-library(methods)
-library(IRanges)
+#library(methods)
+#library(IRanges)
 
 CapitalizeFirstLetter <- function(gene){
   # CRY1 -> Cry1

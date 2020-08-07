@@ -1,4 +1,4 @@
-source("R/functions/PlotFunctions.auxiliary.R")
+#source("R/functions/PlotFunctions.auxiliary.R")
 
 SummarizeConvergenceByModel <- function(fits){
   jmodels <- colnames(fits)[grepl("^fit.", colnames(fits))]
