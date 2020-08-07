@@ -304,3 +304,89 @@ LoadPrimetimeObjs <- function(){
 }
 
 
+LoadPrimetimeObjs.old <- function(){
+  # setwd("/home/yeung/projects/sleep_deprivation")
+  
+  library(dplyr)
+  library(reshape2)
+  library(wordcloud)
+  library(hash)
+  library(ggplot2)
+  library(sleuth)
+  
+  source("R/functions/RoundTwoPCAScripts.R")
+  source("R/functions/PlotFunctions.R")
+  source("R/functions/PlotFunctions.auxiliary.R")
+  source("R/functions/EegFunctions.R")
+  source("R/functions/ModelSelectionFunctions.R")
+  source("R/functions/FitFunctions.R")
+  source("R/functions/SummarizeModels.R")
+  source("R/functions/GetTFs.R")
+  source("R/functions/FitFunctions_Downstream.R")
+  source("R/functions/MaraDownstream.R")
+  source("R/functions/SleuthFunctions.R")
+  source("R/functions/ClusteringFunctions.R")
+  
+  
+  # Inits -------------------------------------------------------------------
+  
+  LoadInits()
+  
+  # Load RNASeq ---------------------------------------------------------------
+  
+  
+  # # Load old TPM filtered genes
+  dat.long.shift <- GetCountsMatrix(prefilt.sleuth, max.time, filter.max.time = TRUE)
+  dat.long.cleaned <- GetCountsMatrix(prefilt.sleuth, max.time, filter.max.time = FALSE)
+
+  
+  # Load eeg ----------------------------------------------------------------
+  
+  # dat.eeg.plot <- GetSubsampledEeg(inf="Robjs/eeg_data_merged_72_and_78_hr_mice/wake.df.method.mode.Robj", max.time=78)
+  # dat.eeg.plot <- GetSubsampledEeg(inf="Robjs/eeg_data_merged_72_and_78_hr_mice/wake.df.method.mode.Robj", max.time=78)
+  dat.eeg.plot <- GetSubsampledEeg(inf="dummyVar", max.time=78)
+  wake.df <- GetWakeCollapsed(inf="dummyVar", tstep = tstep, max.time = max.time, return.wake.df.only = TRUE)
+  wake.collapsed <- CollapseWake(wake.df, tstep, filter.time = low.pass.filt.time)
+  
+  # Load fits ---------------------------------------------------------------
+  # 
+  if (!prefilt.sleuth){
+    # Load old TPM filtered fits
+	load("data/fits_Rcpp_bugfix.maxiter.2000.LogLBicCorrected.model.sleep_mix_mixedaf_ampfreestep.lambda.1000.dolinear.FALSE.minhl.0.33.RData")
+	fits <- fits.penal.fixed; rm(fits.penal.fixed)
+  } else {
+    # Load new counts filtered fits
+    load("data/fits_Rcpp_sleuthfilt.maxiter.3000.model.LogLBicCorrected.model.sleep_mix_mixedaf.lambda.1000.dolinear.FALSE.minhl.0.33.RData")
+    fits <- fits.all.fixed; rm(fits.all.fixed)
+  }
+  
+  # Load sleuth to filter low counts ----------------------------------------
+  genes.keep <- GetGenesKeep(prefilt.sleuth, counts.cutoff, fits)
+
+  # Load PCA matrix, dat.after
+  dat.after <- LoadPCAMat(dat.long.cleaned)  # dat.after
+  
+  # Filter out genes ---------------------------------------------------------
+  
+  dat.after <- subset(dat.after, gene %in% genes.keep)
+  dat.long.shift <- subset(dat.long.shift, gene %in% genes.keep)
+  fits <- subset(fits, gene %in% genes.keep)
+  
+  # Load Cluster objs -------------------------------------------------------
+  # LoadClusteringObjs.runKmeans(dat.long.shift, clstr.hash, clstr.order)  # runs Kmeans
+  LoadClusteringObjs()  # load from Robj
+  mat.means$cluster <- clstrs$cluster
+  mat.means <- mat.means %>%
+    arrange(pval)
+  models.all <- hash(fits$gene, fits$model)
+  mat.means.withmodel <- mat.means
+  mat.means.withmodel$model <- sapply(mat.means.withmodel$gene, function(g) models.all[[g]])
+  
+  # assign to environment
+  vars.lst <- list(dat.long.shift, fits, dat.after, dat.eeg.plot, wake.collapsed, mat.means.withmodel)
+  names(vars.lst) <- c("dat.long.shift", "fits", "dat.after", "dat.eeg.plot", "wake.collapsed", "mat.means.withmodel")
+  list2env(vars.lst, envir = globalenv())
+  return(NULL)
+}
+
+
