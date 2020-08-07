@@ -79,6 +79,8 @@ GetGenesKeep <- function(prefilt.sleuth, counts.cutoff, fits){
   if (!prefilt.sleuth){
     # Necessary if running on TPM-filt counts
     # inf <- "/home/yeung/data/sleep_deprivation/sleuth_outputs.norm_all/sleuth_norm_all.Rdata"
+	# download on naef server because its >100 MB and put it in data/
+	# http://upnaesrv1.epfl.ch/JakeYeung_SleepPaper_RData_Objects/sleuth_norm_all.Rdata
     inf <- "data/sleuth_norm_all.Rdata"
     so <- sleuth_load(inf)
     sr <- sleuth_results(so, 'reduced:full', 'lrt')
@@ -113,7 +115,9 @@ LoadPCAMat <- function(dat.long.cleaned){
   if (!prefilt.sleuth){
     # Old
     # load("/home/yeung/projects/sleep_deprivation/Robjs/combat/dat.long.kallisto.combat.mean_only.FALSE.exprs_cutoff.2.5.Robj"); dat.after <- dat.long.c
-    load("data/dat.long.kallisto.combat.mean_only.FALSE.exprs_cutoff.2.5.Robj"); dat.after <- dat.long.c
+    # load("data/dat.long.kallisto.combat.mean_only.FALSE.exprs_cutoff.2.5.Robj")
+    data(dat.long.kallisto.combat.mean_only.FALSE.exprs_cutoff.2.5.Robj)
+	dat.after <- dat.long.c
   } else {
     # New with counts filt
     dat.after <- dat.long.cleaned  ## unfiltered 
@@ -124,7 +128,8 @@ LoadPCAMat <- function(dat.long.cleaned){
 
 LoadClusteringObjs <- function(){
   # Load Clustering output. Kmeans sometimes assigns clusters differently so if we reorder clusters by hard coding it is problematic
-  load("data/kmeans_objs.Robj", verbose=TRUE)
+  # load("data/kmeans_objs.Robj", verbose=TRUE)
+  data(kmeans_objs, verbose=TRUE)
   vars.lst <- list(dat.long.means, clstrs, cent.long.base, cent.long.full, mat.means.exprs, mat.means, wss, max.n, n.centers)
   names(vars.lst) <- c("dat.long.means", "clstrs", "cent.long.base", "cent.long.full", "mat.means.exprs", "mat.means", "wss", "max.n", "n.centers")
   list2env(vars.lst, envir = globalenv())
@@ -135,7 +140,8 @@ LoadClusteringObjs.runKmeans <- function(dat.long.shift, clstr.hash, clstr.order
   # qval.cutoff <- 1e-3
   
   # Fancier diff analysis with shrinkage
-  # inf <- "/home/yeung/data/sleep_deprivation/sleuth_outputs.norm_all.gene_aggreg/sleuth_norm_all.aggreg_gene.TRUE.Rdata"
+  # inf <- "/home/yeung/data/sleep_deprivation/sleuth_outputs.norm_all.gene_aggreg/sleuth_norm_all.aggreg_gene.TRUE.Rdata"  # data >100 MB so not put in data directory. 
+  # Download on the Naef server http://upnaesrv1.epfl.ch/JakeYeung_SleepPaper_RData_Objects/sleuth_norm_all.aggreg_gene.TRUE.Rdata and put it in data/ directory
   inf <- "data/sleuth_norm_all.aggreg_gene.TRUE.Rdata"
   so <- sleuth_load(inf)
   sr <- sleuth_results(so, 'reduced:full', 'lrt')
@@ -221,25 +227,25 @@ LoadClusteringObjs.runKmeans <- function(dat.long.shift, clstr.hash, clstr.order
 LoadPrimetimeObjs <- function(){
   # setwd("/home/yeung/projects/sleep_deprivation")
   
-  library(dplyr)
-  library(reshape2)
-  library(wordcloud)
-  library(hash)
-  library(ggplot2)
-  library(sleuth)
+  # library(dplyr)
+  # library(reshape2)
+  # library(wordcloud)
+  # library(hash)
+  # library(ggplot2)
+  # library(sleuth)
   
-  source("R/functions/RoundTwoPCAScripts.R")
-  source("R/functions/PlotFunctions.R")
-  source("R/functions/PlotFunctions.auxiliary.R")
-  source("R/functions/EegFunctions.R")
-  source("R/functions/ModelSelectionFunctions.R")
-  source("R/functions/FitFunctions.R")
-  source("R/functions/SummarizeModels.R")
-  source("R/functions/GetTFs.R")
-  source("R/functions/FitFunctions_Downstream.R")
-  source("R/functions/MaraDownstream.R")
-  source("R/functions/SleuthFunctions.R")
-  source("R/functions/ClusteringFunctions.R")
+  # source("R/functions/RoundTwoPCAScripts.R")
+  # source("R/functions/PlotFunctions.R")
+  # source("R/functions/PlotFunctions.auxiliary.R")
+  # source("R/functions/EegFunctions.R")
+  # source("R/functions/ModelSelectionFunctions.R")
+  # source("R/functions/FitFunctions.R")
+  # source("R/functions/SummarizeModels.R")
+  # source("R/functions/GetTFs.R")
+  # source("R/functions/FitFunctions_Downstream.R")
+  # source("R/functions/MaraDownstream.R")
+  # source("R/functions/SleuthFunctions.R")
+  # source("R/functions/ClusteringFunctions.R")
   
   
   # Inits -------------------------------------------------------------------
@@ -266,11 +272,13 @@ LoadPrimetimeObjs <- function(){
   # 
   if (!prefilt.sleuth){
     # Load old TPM filtered fits
-	load("data/fits_Rcpp_bugfix.maxiter.2000.LogLBicCorrected.model.sleep_mix_mixedaf_ampfreestep.lambda.1000.dolinear.FALSE.minhl.0.33.RData")
+	# load("data/fits_Rcpp_bugfix.maxiter.2000.LogLBicCorrected.model.sleep_mix_mixedaf_ampfreestep.lambda.1000.dolinear.FALSE.minhl.0.33.RData")
+	data(fits_Rcpp_bugfix.maxiter.2000.LogLBicCorrected.model.sleep_mix_mixedaf_ampfreestep.lambda.1000.dolinear.FALSE.minhl.0.33)
 	fits <- fits.penal.fixed; rm(fits.penal.fixed)
   } else {
     # Load new counts filtered fits
-    load("data/fits_Rcpp_sleuthfilt.maxiter.3000.model.LogLBicCorrected.model.sleep_mix_mixedaf.lambda.1000.dolinear.FALSE.minhl.0.33.RData")
+    # load("data/fits_Rcpp_sleuthfilt.maxiter.3000.model.LogLBicCorrected.model.sleep_mix_mixedaf.lambda.1000.dolinear.FALSE.minhl.0.33.RData")
+    data(fits_Rcpp_sleuthfilt.maxiter.3000.model.LogLBicCorrected.model.sleep_mix_mixedaf.lambda.1000.dolinear.FALSE.minhl.0.33.RData)
     fits <- fits.all.fixed; rm(fits.all.fixed)
   }
   
