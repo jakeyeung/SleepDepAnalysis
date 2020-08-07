@@ -24,16 +24,23 @@
 "wake.df.method.mode"
 
 #'
-#' @format TODO
+#' @format Fits output
 #' \describe{
-#'   \item{TODO}{TODO}
+#'   \item{}{}
 #' }
-"fits_Rcpp_bugfix.maxiter.2000.LogLBicCorrected.model.sleep_mix_mixedaf_ampfreestep.lambda.1000.dolinear.FALSE.minhl.0.33.RData"
+"fits_Rcpp_bugfix.maxiter.2000.LogLBicCorrected.model.sleep_mix_mixedaf_ampfreestep.lambda.1000.dolinear.FALSE.minhl.0.33"
 
 #'
-#' @format TODO
+#' @format Fits output
 #' \describe{
-#'   \item{TODO}{TODO}
+#'   \item{}{}
 #' }
 "fits_Rcpp_sleuthfilt.maxiter.3000.model.LogLBicCorrected.model.sleep_mix_mixedaf.lambda.1000.dolinear.FALSE.minhl.0.33.RData"
+
+#'
+#' @format Object containing input for kmeans analysis
+#' \describe{
+#'   \item{}{}
+#' }
+"kmeans_objs.Robj"
 
