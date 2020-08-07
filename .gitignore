@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+data/sleuth_norm_all.aggreg_gene.TRUE.Rdata
+data/sleuth_norm_all.Rdata

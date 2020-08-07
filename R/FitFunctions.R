@@ -1025,15 +1025,6 @@ logL.Scollapsed <- function(th, x, wake.collapsed, filter.times, do.lowpass=FALS
   return(loss)
 }
 
-Rcpp::cppFunction('double GetNextS(NumericVector row, NumericVector th, double Sprev) {
-            double S;
-            if (row[0] == 1){
-              S = th[1] - (th[1] - Sprev) * exp(-row[1] / th[2]);
-            } else {
-              S = th[3] + (Sprev - th[3]) * exp(-row[1] / th[4]);
-            }
-            return S;
-}')
 
 S.process.collapsed <- function(th, wake.collapsed, filter.times, do.lowpass = FALSE, low.pass.filter.times = NA){
   # th1 -> init value
@@ -1047,6 +1038,16 @@ S.process.collapsed <- function(th, wake.collapsed, filter.times, do.lowpass = F
   # equal timesteps. Timestep will be calculated from low.pass.filter.times, so it needs to be evenly spaced.
   # low.pass.filter.times: filter.times must be subset of low.pass.filter.times
   # 
+
+  Rcpp::cppFunction('double GetNextS(NumericVector row, NumericVector th, double Sprev) {
+              double S;
+              if (row[0] == 1){
+                S = th[1] - (th[1] - Sprev) * exp(-row[1] / th[2]);
+              } else {
+                S = th[3] + (Sprev - th[3]) * exp(-row[1] / th[4]);
+              }
+              return S;
+  }')
 
   S.prev <<- th[1]  # init
   S.out <- apply(wake.collapsed, 1, function(row){

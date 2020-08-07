@@ -7,11 +7,10 @@
 # File: ~/projects/SleepDepAnalysis/R/README.R
 # Make a nice README.md for people to see how to plot the data
 
-library(here)
-setwd(here())
 
-# source("R/functions/LoadData.R")
-# source("R/functions/FitFunctions_Downstream.R")
+
+library(here)  # for loading Mara output, which needs to point to a directory
+setwd(here())
 
 library(SleepDepAnalysis)
 
