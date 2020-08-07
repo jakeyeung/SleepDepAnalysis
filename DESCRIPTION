@@ -18,7 +18,7 @@ Imports:
 	sleuth,
 	methods,
 	IRanges,
-	ggrepel
+	ggrepel,
 	xlsx,
 	Rcpp,
 	biomaRt
