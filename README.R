@@ -1,3 +1,7 @@
+#' ## Installation: 
+# devtools::install_github("jakeyeung/SleepDepAnalysis")
+
+
 # Jake Yeung
 # Date of Creation: 2019-11-28
 # File: ~/projects/SleepDepAnalysis/R/README.R
@@ -6,10 +10,13 @@
 library(here)
 setwd(here())
 
-source("R/functions/LoadData.R")
-source("R/functions/FitFunctions_Downstream.R")
+# source("R/functions/LoadData.R")
+# source("R/functions/FitFunctions_Downstream.R")
+
+library(SleepDepAnalysis)
+
 suppressWarnings(suppressMessages(LoadPrimetimeObjs()))  # loads the processed data into R
-act.zscore.lst <- LoadMaraOutput(act.dir = "data/sleep_deprivation_gene_exprs_all")  # load TF activity outputs
+act.zscore.lst <- LoadMaraOutput(act.dir = "data/sleep_deprivation_gene_exprs_all")  # function needs to point to directory
 
 #' ## Explore the sleep deprivation data
 
