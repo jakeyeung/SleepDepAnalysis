@@ -53,7 +53,15 @@ GetCountsMatrix <- function(prefilt.sleuth, max.time, filter.max.time = TRUE){
       arrange(time)
     # dat.long.shift <- subset(dat.long.shift, time <= max.time) do it within IF loop
   } else {
-    load("/home/yeung/projects/sleep_deprivation/Robjs/combat_sleuth_filt/dat_combat_countsfilt.5.5.Robj", v=T)
+    jdest <- "data/dat_combat_countsfilt.5.5.Robj"
+    if (!file.exists(jdest)){
+	  jurl <- "https://zenodo.org/record/4057008/files/dat_combat_countsfilt.5.5.Robj?download=1"
+	  print('Did not find "data/dat_combat_countsfilt.5.5.Robj", downloading from zenodo')
+	  print(jurl)
+      utils::download.file(jurl, jdest)
+	}
+	load(jdest)
+    # load("/home/yeung/projects/sleep_deprivation/Robjs/combat_sleuth_filt/dat_combat_countsfilt.5.5.Robj", v=T)
   }
   # ignore timepoints: 192 and 198 SD???
   if (filter.max.time){

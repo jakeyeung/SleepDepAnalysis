@@ -1,5 +1,8 @@
 #' ## Installation: 
 # devtools::install_github("jakeyeung/SleepDepAnalysis")
+# note: data objects can also be found in URL: https://zenodo.org/record/4057008
+# There is an object called "dat_combat_countsfilt.5.5.Robj" that is >100 MB, which exceeds github hard limit.
+# In GetCountsMatrix() the function downloads the .Robj from zenodo and loads it. 
 
 
 # Jake Yeung
@@ -12,6 +15,12 @@
 library(here)  # for loading Mara output, which needs to point to a directory
 setwd(here())
 
+library(hash)
+library(reshape2)
+library(dplyr)
+library(Matrix)
+library(ggplot2)
+library(Rcpp)
 library(SleepDepAnalysis)
 
 suppressWarnings(suppressMessages(LoadPrimetimeObjs()))  # loads the processed data into R
@@ -84,6 +93,7 @@ act.means <- act.long %>%
   group_by(gene, time) %>%
   summarise(exprs = mean(exprs), sem = sqrt(sum(sem ^ 2)))
 PlotMara.withEEG(subset(act.means, gene == jmotif), dat.eeg.plot, jtitle = jmotif, labsize = 10, ysize = 10)
+
 
 
 
