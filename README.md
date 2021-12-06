@@ -1,3 +1,8 @@
+Welcome to the git repository for the accompanying paper "Hor, C. N., Yeung, J., Jan, M., Emmenegger, Y., Hubbard, J., Xenarios, I., ... & Franken, P. (2019). Sleep–wake-driven and circadian contributions to daily rhythms in gene expression and chromatin accessibility in the murine cortex. Proceedings of the National Academy of Sciences, 116(51), 25773-25783."
+
+Link to paper: [https://www.pnas.org/content/116/51/25773.short](https://www.pnas.org/content/116/51/25773.short)
+
+
 Installation:
 -------------
 
